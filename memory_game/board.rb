@@ -34,9 +34,13 @@ class Board
 
             if self[position_1].empty? && self[position_2].empty?
                 char = letter_bank.pop()
-                self[position_1] = char
-                self[position_2] = char
+                card_1 = Card.new(char)
+                card_2 = Card.new(char)
+                self[position_1] = card_1.value
+                self[position_2] = card_2.value
+                
             end
+
         end
     end
 
@@ -45,8 +49,8 @@ class Board
 
         @grid.map do |row|
             row.map do |ele|
-                if letter_bank.include?(ele)
-                    ele = ""
+                if ele.face_up 
+                    ele = ele.value
                 else
                     ele
                 end
