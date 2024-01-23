@@ -1,7 +1,7 @@
 class Card
-    def initialize
-        @face_up = false 
-        @face_down = false
+    def initialize(value)
+        @face_up = true
+        @value = value
     end
 
     def display
@@ -11,18 +11,18 @@ class Card
     end
 
     def hide
-        if @face_up 
-            @face_down
-        end
+        @face_up = false
+
     end
 
     def reveal
-        if @face_down
-            @face_up
-        end
+        @face_up = true
     end
 
-    def flip
 
+
+    def ==(another_card)
+        @value == another_card.value
     end
+        
 end
