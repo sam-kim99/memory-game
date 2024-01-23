@@ -12,17 +12,13 @@ class Card
 
     def hide
         @face_up = false
-
     end
 
     def reveal
         @face_up = true
     end
 
-
-
     def ==(another_card)
         @value == another_card.value
     end
-        
 end

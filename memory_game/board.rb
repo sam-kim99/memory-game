@@ -12,4 +12,62 @@ class Board
     def flip
 
     end
+
+    def [](position)
+        row, col = position
+        @grid[row][col]
+    end
+
+    def []=(position, value)
+        row, col = position
+        @grid[row][col] = value
+    end
+
+
+
+    def populate
+        letter_bank = ["a", "b", "c", "d", "e", "f", "g", "h"]
+
+        while letter_bank.length != 0
+            position_1 = self.random_pos
+            position_2 = self.random_pos
+
+            if self[position_1].empty? && self[position_2].empty?
+                char = letter_bank.pop()
+                self[position_1] = char
+                self[position_2] = char
+            end
+        end
+    end
+
+    def hidden_grid
+        letter_bank = ["a", "b", "c", "d", "e", "f", "g", "h"]
+
+        @grid.map do |row|
+            row.map do |ele|
+                if letter_bank.include?(ele)
+                    ele = ""
+                else
+                    ele
+                end
+            end
+        end
+    end
+
+    def render
+
+    end
+
+    def random_pos
+        rand_row = rand(1..4)
+        rand_col = rand(1..4)
+
+        position = [rand_row, rand_col]
+        position
+    end
+
+    def empty?(position) 
+        @grid[position] == ""
+    end
+
 end
