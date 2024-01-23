@@ -1,3 +1,5 @@
+require_relative './card.rb'
+
 class Board
     def initialize
         @grid = Array.new(5) {Array.new(5, "")}
@@ -9,9 +11,9 @@ class Board
         end
     end
 
-    def flip
+    # def flip
 
-    end
+    # end
 
     def [](position)
         row, col = position
@@ -32,7 +34,7 @@ class Board
             position_1 = self.random_pos
             position_2 = self.random_pos
 
-            if self[position_1].empty? && self[position_2].empty?
+            if (self[position_1].empty? && self[position_2].empty?) && (position_1 != position_2)
                 char = letter_bank.pop()
                 card_1 = Card.new(char)
                 card_2 = Card.new(char)
@@ -49,8 +51,8 @@ class Board
 
         @grid.map do |row|
             row.map do |ele|
-                if ele.face_up 
-                    ele = ele.value
+                if letter_bank.include?(ele)
+                    ele = ""
                 else
                     ele
                 end
