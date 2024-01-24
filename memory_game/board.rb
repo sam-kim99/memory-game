@@ -1,6 +1,11 @@
 require_relative './card.rb'
 
 class Board
+    attr_reader :grid
+    def self.print_grid(grid)
+        grid.each {|row| puts row.join(" ")}
+    end
+
     def initialize
         @grid = Array.new(5) {Array.new(5, "")}
         i = 0
@@ -38,13 +43,19 @@ class Board
                 char = letter_bank.pop()
                 card_1 = Card.new(char)
                 card_2 = Card.new(char)
+                # create_card_at(position_1, char)
+                # create_card_at(position_2, char)
                 self[position_1] = card_1.value
                 self[position_2] = card_2.value
-                
             end
 
         end
     end
+
+    # def create_card_at(position,char)
+    #     card = Card.new(char)
+    #     self[position] = card.value
+    # end
 
     def hidden_grid
         letter_bank = ["a", "b", "c", "d", "e", "f", "g", "h"]
@@ -60,8 +71,10 @@ class Board
         end
     end
 
-    def render
 
+    def render
+        Board.print_grid(hidden_grid)
+        
     end
 
     def random_pos
@@ -74,6 +87,23 @@ class Board
 
     def empty?(position) 
         @grid[position] == ""
+    end
+
+    def reveal(guessed_pos)
+        card = self[guessed_pos]
+        if !card.face_up
+            card.value
+        end
+    end
+
+    def won?
+        (1..4).each do |row_idx|
+            (1..4).each do |col_idx|
+                pos = [row_idx, col_idx]
+                return false if self[pos].face_down
+            end
+        end
+        true
     end
 
 end
